@@ -77,6 +77,7 @@ char *ld[]={
 	"/lib/ld-linux.so.2", 
 	"-L" LCCDIR,
 	"-L" LCCDIR "/gcc/32",
+	"-L/usr/lib32",
 	"-lgcc",
 	"-lc",
 	"-lm",
