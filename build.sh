@@ -36,6 +36,12 @@ patch -N -r - lcc/src/expr.c movfuscator/expr.patch
 # Add additional flag passing for lcc linker
 patch -N -r - lcc/etc/lcc.c movfuscator/lcc.patch
 
+# Rename constexpr (reserved keyword in C23) in lcc sources
+patch -N -r - -p1 -d lcc < movfuscator/constexpr.patch
+
+# Fix implicit stdlib.h declarations in lburg yacc-generated parser (modern GCC)
+patch -N -r - -p1 -d lcc < movfuscator/gram.patch
+
 # Build the compiler driver
 make -C lcc HOSTFILE=../movfuscator/host.c CFLAGS='-g -DLCCDIR=\"$(BUILDDIR)/\"' lcc
 

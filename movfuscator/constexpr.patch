@@ -1,0 +1,42 @@
+--- b/src/c.h	2026-04-28 16:09:49.123045338 +0200
++++ a/src/c.h	2026-04-28 16:10:43.482993887 +0200
+@@ -513,7 +513,7 @@
+ extern int findfunc(char *, char *);
+ extern int findcount(char *, int, int);
+ 
+-extern Tree constexpr(int);
++extern Tree const_expr(int);
+ extern int intexpr(int, int);
+ extern Tree simplify(int, Type, Tree, Tree);
+ extern int ispow2(unsigned long u);
+--- b/src/simp.c	2026-04-28 16:09:49.123649533 +0200
++++ a/src/simp.c	2026-04-28 16:10:43.484993904 +0200
+@@ -184,7 +184,7 @@
+ static int subd(double x, double y, double min, double max, int needconst) {
+ 	return addd(x, -y, min, max, needconst);
+ }
+-Tree constexpr(int tok) {
++Tree const_expr(int tok) {
+ 	Tree p;
+ 
+ 	needconst++;
+@@ -194,7 +194,7 @@
+ }
+ 
+ int intexpr(int tok, int n) {
+-	Tree p = constexpr(tok);
++	Tree p = const_expr(tok);
+ 
+ 	needconst++;
+ 	if (p->op == CNST+I || p->op == CNST+U)
+--- b/src/stmt.c	2026-04-28 16:09:49.123649533 +0200
++++ a/src/stmt.c	2026-04-28 16:10:43.487993929 +0200
+@@ -119,7 +119,7 @@
+ 		       		static char stop[] = { IF, ID, 0 };
+ 		       		Tree p;
+ 		       		t = gettok();
+-		       		p = constexpr(0);
++		       		p = const_expr(0);
+ 		       		if (generic(p->op) == CNST && isint(p->type)) {
+ 		       			if (swp) {
+ 		       				needconst++;

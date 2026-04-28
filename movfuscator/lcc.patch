@@ -1,5 +1,23 @@
---- ../../movfuscator/lcc/etc/lcc.c	2017-09-05 15:08:32.258654206 -0400
-+++ lcc/etc/lcc.c	2019-04-12 12:47:53.130761991 -0400
+--- /tmp/lcc_orig.c	2026-04-28 16:07:21.362687394 +0200
++++ /home/markus/redsun_stuff/movfuscator/lcc/etc/lcc.c	2026-04-28 16:07:27.986634670 +0200
+@@ -71,7 +71,7 @@
+ static char *progname;
+ static List lccinputs;		/* list of input directories */
+ 
+-main(int argc, char *argv[]) {
++int main(int argc, char *argv[]) {
+ 	int i, j, nf;
+ 	
+ 	progname = argv[0];
+@@ -217,7 +217,7 @@
+ #define _P_WAIT 0
+ extern int fork(void);
+ extern int wait(int *);
+-extern void execv(const char *, char *[]);
++extern int execv(const char *, char * const[]);
+ 
+ static int _spawnvp(int mode, const char *cmdname, const char *const argv[]) {
+ 	int pid, n, status;
 @@ -587,6 +587,13 @@
  xx(unsigned_short,2)
  xx(unsigned_int,4)
@@ -14,3 +32,12 @@
  				return;
  			case 'a':
  				alist = append(&arg[3], alist);
+@@ -726,7 +733,7 @@
+ 		sep = ';';
+ 	while (*path) {
+ 		char *p, buf[512];
+-		if (p = strchr(path, sep)) {
++		if ((p = (char *)strchr(path, sep))) {
+ 			assert(p - path < sizeof buf);
+ 			strncpy(buf, path, p - path);
+ 			buf[p-path] = '\0';
