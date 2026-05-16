@@ -115,7 +115,7 @@ with open(sys.argv[1]) as f:
 with open(sys.argv[1], 'w') as f:
     swaps = 0
 
-    for k in xrange(SWAP_PASSES):
+    for k in range(SWAP_PASSES):
         for i1, l1 in enumerate(asm):
             sys.stdout.write("shuffling ... %4.2f%% (%d swaps)\r" % \
                     ((k*len(asm)+i1) * 100.0 / (SWAP_PASSES * len(asm)), swaps))

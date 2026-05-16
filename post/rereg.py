@@ -208,4 +208,4 @@ for i, l in enumerate(asm):
         asm[i] = l
 
 for l in asm:
-    print l.strip()
+    print(l.strip())

@@ -37,7 +37,7 @@ with open(sys.argv[1], 'w') as f:
             if source.startswith("$"):
                 # have to jump through some hoops due to as and ld limitations
                 # on absolutes 
-                c = hashlib.md5(source[1:]).hexdigest()
+                c = hashlib.md5(source[1:].encode()).hexdigest()
                 f.write(".section .data\n")
                 f.write(".ifndef .C%s\n" % c)
                 f.write(".C%s: .long %s\n" % (c, source[1:]))

@@ -39,7 +39,7 @@ with open(sys.argv[1], 'w') as f:
 
                 # have to jump through some hoops due to as and ld limitations
                 # on absolutes 
-                c = hashlib.md5(source[1:]).hexdigest()
+                c = hashlib.md5(source[1:].encode()).hexdigest()
                 f.write(".section .data\n")
                 f.write(".ifndef .C%s\n" % c)
                 f.write(".C%s: .long %s\n" % (c, source[1:]))
@@ -85,10 +85,10 @@ with open(sys.argv[1], 'w') as f:
             # ridiculous register shuffling necessary b/c ebx is 
             # our last byte addressable register
 
-            for i in xrange(0,b):
+            for i in range(0,b):
                 f.write("xadd%s %s, %s\n" % (s, reg, reg))
 
-            for i in xrange(0,b):
+            for i in range(0,b):
                 f.write("xaddl %esi, %esi\n")
 
             f.write("xadd%s %s, %s\n" % (s, reg, source))
@@ -96,7 +96,7 @@ with open(sys.argv[1], 'w') as f:
 
             f.write("xadd%s %s, %s\n" % (s, reg, dest))
 
-            for i in xrange(0,b):
+            for i in range(0,b):
                 f.write("xadd%s %s, %s\n" % (s, reg, dest))
                 f.write("xadd%s %s, %s\n" % (s, reg, reg))
 

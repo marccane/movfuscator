@@ -87,7 +87,7 @@ with open(sys.argv[1], 'w') as f:
 
                 # have to jump through some hoops due to as and ld limitations
                 # on absolutes 
-                c = hashlib.md5(source[1:]).hexdigest()
+                c = hashlib.md5(source[1:].encode()).hexdigest()
                 f.write(".section .data\n")
                 f.write(".ifndef .C%s\n" % c)
                 f.write(".C%s: .long %s\n" % (c, source[1:]))
@@ -145,35 +145,35 @@ with open(sys.argv[1]) as f:
 with open(sys.argv[1], 'w') as f:
     f.write("# section padding\n")
     f.write(".section .data\n")
-    for i in xrange(0,(XFER_SIZE+1)/4):
+    for i in range(0,(XFER_SIZE+1)//4):
         f.write(".long 0\n")
     f.write(".section .bss\n")
-    for i in xrange(0,(XFER_SIZE+1)/4):
+    for i in range(0,(XFER_SIZE+1)//4):
         f.write(".long 0\n")
     f.write("# end padding\n")
     f.write("# mov32 shuffle space\n")
     f.write(".section .data\n")
-    for i in xrange(0,(XFER_SIZE+1)/4):
+    for i in range(0,(XFER_SIZE+1)//4):
         f.write(".s_a%d: .byte 0\n" % i)
-    for i in xrange(0,(XFER_SIZE+1)/4):
+    for i in range(0,(XFER_SIZE+1)//4):
         f.write(".s_b%d: .byte 0\n" % i)
-    for i in xrange(0,(XFER_SIZE+1)/4):
+    for i in range(0,(XFER_SIZE+1)//4):
         f.write(".s_c%d: .byte 0\n" % i)
-    for i in xrange(0,(XFER_SIZE+1)/4):
+    for i in range(0,(XFER_SIZE+1)//4):
         f.write(".r_a%d: .byte 0\n" % i)
-    for i in xrange(0,(XFER_SIZE+1)/4):
+    for i in range(0,(XFER_SIZE+1)//4):
         f.write(".r_b%d: .byte 0\n" % i)
-    for i in xrange(0,(XFER_SIZE+1)/4):
+    for i in range(0,(XFER_SIZE+1)//4):
         f.write(".r_c%d: .byte 0\n" % i)
     f.write("# end shuffle space\n")
     for l in asm:
         f.write(l)
     f.write("# section padding\n")
     f.write(".section .data\n")
-    for i in xrange(0,(XFER_SIZE+1)/4):
+    for i in range(0,(XFER_SIZE+1)//4):
         f.write(".long 0\n")
     f.write(".section .bss\n")
-    for i in xrange(0,(XFER_SIZE+1)/4):
+    for i in range(0,(XFER_SIZE+1)//4):
         f.write(".long 0\n")
     f.write("# end padding\n")
 
@@ -349,14 +349,14 @@ with open(sys.argv[1], 'w') as f:
 
     for k in (0,1,2,3):
         f.write(".scale%dl:\n" % (2**k))
-        for i in xrange(0,256):
+        for i in range(0,256):
             f.write(".byte 0x%02x\n" % ((i<<k)&0xff))
         f.write(".scale%dh:\n" % (2**k))
-        for i in xrange(0,256):
+        for i in range(0,256):
             f.write(".byte 0x%02x\n" % (((i<<k)&0xff00)>>8))
 
     f.write(".riscor:\n")
-    for i in xrange(0,0x10000):
+    for i in range(0,0x10000):
         f.write(".byte 0x%02x\n" % ((i&0xff)|((i&0xff00)>>8)))
 
     f.write(".long 0\n")
@@ -376,11 +376,11 @@ with open(sys.argv[1], 'w') as f:
         f.write(".sum%dh: .long 0, 0\n" % i)
 
     f.write(".riscaddl:\n")
-    for i in xrange(0,0x20000):
+    for i in range(0,0x20000):
         f.write(".byte 0x%02x\n" % \
                 (((i&0xff)+((i&0xff00)>>8)+((i&0x10000)>>16))&0xff))
     f.write(".riscaddh:\n")
-    for i in xrange(0,0x20000):
+    for i in range(0,0x20000):
         f.write(".byte 0x%02x\n" % \
                 (((i&0xff)+((i&0xff00)>>8)+((i&0x10000)>>16))>>8))
 

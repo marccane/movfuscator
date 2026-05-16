@@ -50,21 +50,21 @@ with open(sys.argv[1], 'w') as f:
             # ridiculous register shuffling necessary b/c ebx is 
             # our last byte addressable register
 
-            for i in xrange(0,b):
+            for i in range(0,b):
                 f.write("add%s %s, %s\n" % (s, reg, reg))
 
-            for i in xrange(0,b):
+            for i in range(0,b):
                 f.write("addl %esi, %esi\n")
 
             f.write("add%s %s, %s\n" % (s, source, reg))
             f.write("addl %ebx, %esi\n")
 
-            for i in xrange(0,b):
+            for i in range(0,b):
                 f.write("add%s %s, %s\n" % (s, reg, reg))
 
             f.write("add%s %s, %s\n" % (s, dest, reg))
 
-            for i in xrange(0,b):
+            for i in range(0,b):
                 f.write("add%s %s, %s\n" % (s, reg, dest))
                 f.write("add%s %s, %s\n" % (s, reg, reg))
 
