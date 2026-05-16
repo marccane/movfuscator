@@ -79,7 +79,7 @@ with open(sys.argv[1], 'w') as f:
             if tok == -1:
                 tok = l.find(",")
             source = l[l.index(" "):tok].strip()
-            dest = l[tok+1:].strip()
+            dest = l[tok+1:].split('#')[0].strip()
 
             # NOTE: requires M/o/Vfuscator to only produce dword constants
             if source.startswith("$"):
@@ -119,7 +119,7 @@ with open(sys.argv[1], 'w') as f:
             if tok == -1:
                 tok = l.find(",")
             source = l[l.index(" "):tok].strip()
-            dest = l[tok+1:].strip()
+            dest = l[tok+1:].split('#')[0].strip()
 
             if l.startswith("movb"):
                 s = "b"
@@ -191,7 +191,7 @@ with open(sys.argv[1], 'w') as f:
             if tok == -1:
                 tok = l.find(",")
             source = l[l.index(" "):tok].strip()
-            dest = l[tok+1:].strip()
+            dest = l[tok+1:].split('#')[0].strip()
 
             # warning: ebp used in a previous pass to load immediates.  it's
             # okay since it was loading 32 bit values, and won't be translated

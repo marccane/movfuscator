@@ -58,7 +58,7 @@ def genreg(l):
     if tok == -1:
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
-    dest = l[tok+1:].strip()
+    dest = l[tok+1:].split('#')[0].strip()
 
     if "TR0" in source:
         source = source.replace("TR0", "r%d" % r0)
@@ -123,7 +123,7 @@ def rereg(l, asm, i):
     if tok == -1:
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
-    dest = l[tok+1:].strip()
+    dest = l[tok+1:].split('#')[0].strip()
 
     source_regs = re.findall(r'r\d+_', source)
     for r in source_regs:

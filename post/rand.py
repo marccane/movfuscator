@@ -29,7 +29,7 @@ def o_adc(f, l):
     if tok == -1:
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
-    dest = l[tok+1:].strip()
+    dest = l[tok+1:].split('#')[0].strip()
 
     if l.startswith("movb"):
         b = 8
@@ -85,7 +85,7 @@ def o_add(f, l):
     if tok == -1:
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
-    dest = l[tok+1:].strip()
+    dest = l[tok+1:].split('#')[0].strip()
 
     if l.startswith("movb"):
         b = 8
@@ -131,7 +131,7 @@ def o_andor(f, l):
     if tok == -1:
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
-    dest = l[tok+1:].strip()
+    dest = l[tok+1:].split('#')[0].strip()
 
     if l.startswith("movb"):
         s = "b"
@@ -155,7 +155,7 @@ def o_rrrrr(f, l):
     if tok == -1:
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
-    dest = l[tok+1:].strip()
+    dest = l[tok+1:].split('#')[0].strip()
 
     if l.startswith("movb"):
         b = 8
@@ -194,7 +194,7 @@ def o_sbb(f, l):
     if tok == -1:
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
-    dest = l[tok+1:].strip()
+    dest = l[tok+1:].split('#')[0].strip()
 
     if l.startswith("movb"):
         s = "b"
@@ -236,7 +236,7 @@ def o_sub(f, l):
     if tok == -1:
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
-    dest = l[tok+1:].strip()
+    dest = l[tok+1:].split('#')[0].strip()
 
     if l.startswith("movb"):
         s = "b"
@@ -268,7 +268,7 @@ def o_xadd(f, l):
     if tok == -1:
         tok = l.find(",")
     source = l[l.index(" "):tok].strip()
-    dest = l[tok+1:].strip()
+    dest = l[tok+1:].split('#')[0].strip()
 
     if l.startswith("movb"):
         b = 8
@@ -319,7 +319,7 @@ with open(sys.argv[1], 'w') as f:
             if tok == -1:
                 tok = l.find(",")
             source = l[l.index(" "):tok].strip()
-            dest = l[tok+1:].strip()
+            dest = l[tok+1:].split('#')[0].strip()
 
             # NOTE: requires M/o/Vfuscator to only produce dword constants
             if source.startswith("$"):
