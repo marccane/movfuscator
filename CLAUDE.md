@@ -7,10 +7,10 @@ The M/o/Vfuscator compiles C programs into x86 binaries that use only `mov` inst
 ## How to build
 
 ```sh
-bash build.sh
+make
 ```
 
-The script:
+The Makefile:
 1. Clones `https://github.com/drh/lcc` and hard-resets it to a known commit.
 2. Applies all patches in `movfuscator/` to lcc source files.
 3. Builds the lcc compiler driver (`build/lcc`, symlinked as `build/movcc`).
@@ -18,10 +18,12 @@ The script:
 5. Compiles the CRT libraries (`build/crt0.o`, `crtf.o`, `crtd.o` and `_cf` variants).
 6. Builds softfloat libraries into `movfuscator/lib/`.
 
+Other targets: `make check`, `make install`, `make clean`, `make distclean` (also removes `lcc/` and `validation/aes/`).
+
 ## How to verify the build
 
 ```sh
-bash check.sh
+make check
 ```
 
 Clones a tiny AES implementation, M/o/Vfuscates it, objdumps it, and runs it.
