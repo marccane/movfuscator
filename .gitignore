@@ -13,3 +13,7 @@ validation/aes/
 # Make sentinel files
 softfloat/.built_normal
 softfloat/.built_cf
+
+# Test/scratch directories and Python cache
+testing*/
+post/__pycache__/
